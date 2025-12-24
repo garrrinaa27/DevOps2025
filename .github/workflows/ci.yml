@@ -1,0 +1,86 @@
+name: Full CI Pipeline — Student Anyuta
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    name: Build Stage (Anyuta)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare build environment
+        run: |
+          echo "Preparing build environment..."
+          echo "CI executed by student: Anyuta"
+
+      - name: Build project
+        run: |
+          echo "Building project..."
+          echo "Build completed by Anyuta"
+
+  testing:
+    name: Testing Stage (Anyuta)
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run unit tests
+        run: |
+          echo "Running unit tests..."
+          echo "Unit tests passed (Anyuta)"
+
+      - name: Run integration tests
+        run: |
+          echo "Running integration tests..."
+          echo "Integration tests passed (Anyuta)"
+
+  packaging:
+    name: Packaging Stage (Anyuta)
+    runs-on: ubuntu-latest
+    needs: testing
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create artifacts
+        run: |
+          mkdir -p dist
+          echo "Artifact created by Anyuta" > dist/artifact.txt
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact-anyuta
+          path: dist/
+
+  deploy:
+    name: Deployment Stage (Anyuta)
+    runs-on: ubuntu-latest
+    needs: packaging
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy application
+        run: |
+          echo "Deploying application..."
+          echo "Deployment performed by Anyuta"
+
+      - name: Create deployment marker
+        run: |
+          echo "Deployment completed by Anyuta at $(date)" > deployment_anyuta.txt
+
+      - name: Upload deployment log
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployment-log-anyuta
+          path: deployment_anyuta.txt
+
